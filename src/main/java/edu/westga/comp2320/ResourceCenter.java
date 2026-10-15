@@ -1,5 +1,6 @@
 package edu.westga.comp2320;
 
+import edu.westga.comp2320.events.CheckoutEvent;
 import edu.westga.comp2320.manager.ResourceManager;
 import edu.westga.comp2320.events.Event;
 
@@ -27,7 +28,7 @@ public class ResourceCenter {
         int time = 0;
         while (time < SIMULATION_DURATION) {
             time += MIN_CHECKOUT_INTERVAL + rand.nextInt(MAX_CHECKOUT_INTERVAL - MIN_CHECKOUT_INTERVAL);
-//            this.eventQueue.add(new CheckoutEvent(time, resourceManager));
+            this.eventQueue.add(new CheckoutEvent(time, resourceManager));
         }
     }
 
