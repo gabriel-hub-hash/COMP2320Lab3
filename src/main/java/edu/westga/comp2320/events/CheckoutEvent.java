@@ -1,7 +1,9 @@
 package edu.westga.comp2320.events;
 
+import edu.westga.comp2320.SimulationParameters;
 import edu.westga.comp2320.manager.ResourceManager;
 import edu.westga.comp2320.resources.Laptop;
+import edu.westga.comp2320.resources.Resource;
 
 import java.util.Random;
 
@@ -23,7 +25,20 @@ public class CheckoutEvent extends Event {
 
     @Override
     public Event processEvent() {
-        Laptop currResource = this.resourceManager.getResource();
+        int randomResourceNumber = (int)(Math.random()*100);
+        String resourceType;
+
+        if (randomResourceNumber < SimulationParameters.PROBABILITY_OF_LAPTOP) {
+            resourceType = "Laptop";
+        }
+        else if (randomResourceNumber < SimulationParameters.PROBABILITY_OF_TABLET + SimulationParameters.PROBABILITY_OF_LAPTOP) {
+            resourceType = "Tablet";
+        }
+        else {
+            resourceType = "StudyRoom";
+        }
+
+        Resource currResource = this.resourceManager.getResourceByType(resourceType);
         if (currResource == null) {
             System.out.println("*** resource not available at time " + super.getTime());
             return null;
